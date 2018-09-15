@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Entity\LicensorProduct;
 use App\Service\AnidbImporter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,6 +13,36 @@ use Symfony\Component\Routing\Annotation\Route;
 class CollectionController
 extends AbstractController
 {
+
+    /**
+     * @Route("/collection/{collection}/missing/{licensor}", name="collection_missing")
+     */
+    public function missing(
+        int $collection,
+        int $licensor,
+        Request $request,
+        EntityManagerInterface $em
+    ) {
+        $coll = $em->getRepository('App:Collection')->find($collection);
+        $lic = $em->getRepository('App:Licensor')->find($licensor);
+
+        $works = [];
+
+        /** @var LicensorProduct $product */
+        foreach ($lic->getProducts() as $product) {
+            foreach ($product->getWorks() as $work) {
+                if (!$coll->containsWork($work)) {
+                    $works[$work->getId()] = $work;
+                }
+            }
+        }
+
+        return $this->render('collection/missing.html.twig', [
+            'collection' => $coll,
+            'licensor' => $lic,
+            'works' => $works,
+        ]);
+    }
 
     /**
      * @Route("/collection/{collection}/bulk_add", name="collection_bulk_add")

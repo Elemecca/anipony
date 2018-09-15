@@ -26,6 +26,7 @@ class Licensor
 
     /**
      * @ORM\OneToMany(targetEntity="LicensorProduct", mappedBy="licensor")
+     * @var \Doctrine\Common\Collections\Collection
      */
     private $products;
 
@@ -45,6 +46,6 @@ class Licensor
      */
     public function getProducts()
     {
-        return $this->products;
+        return $this->products->toArray();
     }
 }

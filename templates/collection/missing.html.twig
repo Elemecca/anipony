@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title -%}
+  {{ licensor.name }} &lsaquo; Missing &lsaquo; {{ collection.name }} &lsaquo; Collections
+{%- endblock %}
+
+{% block body %}
+  <h1>Collection: {{ collection.name }}</h1>
+  <h2>Missing Works from {{ licensor.name }}</h2>
+
+  <table class="table table-striped table-hover table-sm">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>AniDB ID</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+
+    {% for work in works %}
+      <tr>
+        <td>{{ work.id }}</td>
+        <td>{{ work.aniId }}</td>
+        <td>{{ work.title }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

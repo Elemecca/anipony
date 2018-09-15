@@ -61,6 +61,11 @@ class Collection
         }
     }
 
+    public function containsWork(Work $work)
+    {
+        return $this->works->contains($work);
+    }
+
     public function removeWork(Work $work)
     {
         $this->works->removeElement($work);
