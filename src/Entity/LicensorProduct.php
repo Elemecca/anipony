@@ -47,4 +47,46 @@ class LicensorProduct
      * @var Work|null
      */
     private $work;
+
+
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return Licensor
+     */
+    public function getLicensor(): Licensor
+    {
+        return $this->licensor;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSku(): string
+    {
+        return $this->sku;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @return Work|null
+     */
+    public function getWork(): ?Work
+    {
+        return $this->work;
+    }
 }

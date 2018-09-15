@@ -31,4 +31,21 @@ class Work
      * @ORM\OneToMany(targetEntity="LicensorProduct", mappedBy="work")
      */
     private $products;
+
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /** @return LicensorProduct[] */
+    public function getProducts()
+    {
+        return $this->products;
+    }
 }
