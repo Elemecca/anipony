@@ -4,20 +4,23 @@
   <h1>{{ licensor.name }} Catalog Association</h1>
 
   <form method="POST">
-    <button type="submit">Save</button>
-    <table>
-      <tr>
-        <th>AniDB ID</th>
-        <th>SKU</th>
-        <th>Title</th>
-        <th>Work</th>
-      </tr>
+    <button class="btn btn-primary" type="submit">Save</button>
+
+    <table class="table table-striped table-sm table-hover">
+      <thead>
+        <tr>
+          <th>SKU</th>
+          <th>Title</th>
+          <th>AniDB ID</th>
+          <th>Work</th>
+        </tr>
+      </thead>
 
       {% for product in products %}
         <tr>
-          <td><input type="text" name="products[{{ product.id }}]" /></td>
           <td>{{ product.sku }}</td>
           <td>{{ product.title }}</td>
+          <td><input type="text" name="products[{{ product.id }}]" /></td>
           <td>
             {% if product.work %}
               {{ product.work.id }}
@@ -28,7 +31,7 @@
       {% endfor %}
     </table>
 
-    <button type="submit">Save</button>
+    <button class="btn btn-primary" type="submit">Save</button>
   </form>
 {% endblock %}
 
