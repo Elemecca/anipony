@@ -9,6 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
  * This could be an OVA, an anime series, a manga, etc.
  *
  * @ORM\Entity
+ * @ORM\Table(
+ *     uniqueConstraints={
+ *         @ORM\UniqueConstraint(columns={"ani_id"}),
+ *     },
+ * )
  */
 class Work
 {
@@ -28,6 +33,13 @@ class Work
 
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     * @var int
+     */
+    private $aniId;
+
+
+    /**
      * @ORM\OneToMany(targetEntity="LicensorProduct", mappedBy="work")
      */
     private $products;
@@ -41,6 +53,21 @@ class Work
     public function getTitle(): string
     {
         return $this->title;
+    }
+
+    public function setTitle(string $title)
+    {
+        $this->title = $title;
+    }
+
+    public function getAniId(): ?int
+    {
+        return $this->aniId;
+    }
+
+    public function setAniId(int $id)
+    {
+        $this->aniId = $id;
     }
 
     /** @return LicensorProduct[] */

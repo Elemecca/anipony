@@ -1,28 +1,34 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+  <h1>{{ licensor.name }} Catalog Association</h1>
 
-  <h1>{{ licensor.name }} Catalog</h1>
-
-  <table>
-    <tr>
-      <th>SKU</th>
-      <th>Title</th>
-      <th>Work</th>
-    </tr>
-
-    {% for product in products %}
+  <form method="POST">
+    <button type="submit">Save</button>
+    <table>
       <tr>
-        <td>{{ product.sku }}</td>
-        <td>{{ product.title }}</td>
-        <td>
-          {% if product.work %}
-            {{ product.work.id }}
-            &mdash; {{ product.work.title }}
-          {% endif %}
-        </td>
+        <th>AniDB ID</th>
+        <th>SKU</th>
+        <th>Title</th>
+        <th>Work</th>
       </tr>
-    {% endfor %}
-  </table>
 
+      {% for product in products %}
+        <tr>
+          <td><input type="text" name="products[{{ product.id }}]" /></td>
+          <td>{{ product.sku }}</td>
+          <td>{{ product.title }}</td>
+          <td>
+            {% if product.work %}
+              {{ product.work.id }}
+              &mdash; {{ product.work.title }}
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+
+    <button type="submit">Save</button>
+  </form>
 {% endblock %}
+

@@ -89,4 +89,9 @@ class LicensorProduct
     {
         return $this->work;
     }
+
+    public function setWork(Work $work = null)
+    {
+        $this->work = $work;
+    }
 }
