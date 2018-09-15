@@ -51,6 +51,7 @@ extends AbstractController
         $works = $em->getRepository('App:Work');
 
         if ($request->isMethod('POST')) {
+            $workCache = [];
             $vals = $request->request->get('products');
             foreach ($products as $product) {
                 $prodId = $product->getId();
@@ -58,7 +59,12 @@ extends AbstractController
                 $aniId = $vals[$prodId];
 
 
-                $work = $works->findOneBy(['aniId' => $aniId]);
+                if (isset($workCache[$aniId])) {
+                    $work = $workCache[$aniId];
+                } else {
+                    $work = $works->findOneBy(['aniId' => $aniId]);
+                }
+
                 if (!$work) {
                     $aniTitle = $aniTitles->findOneBy([
                         'aniId' => $aniId,
@@ -72,6 +78,7 @@ extends AbstractController
                     $em->persist($work);
                 }
 
+                $workCache[$aniId] = $work;
                 $product->setWork($work);
             }
 
