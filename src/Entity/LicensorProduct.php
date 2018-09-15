@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -43,10 +44,10 @@ class LicensorProduct
     private $title;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Work", inversedBy="products")
-     * @var Work|null
+     * @ORM\ManyToMany(targetEntity="Work", inversedBy="products")
+     * @var Collection
      */
-    private $work;
+    private $works;
 
 
 
@@ -83,15 +84,15 @@ class LicensorProduct
     }
 
     /**
-     * @return Work|null
+     * @return Work[]
      */
-    public function getWork(): ?Work
+    public function getWorks()
     {
-        return $this->work;
+        return $this->works->toArray();
     }
 
-    public function setWork(Work $work = null)
+    public function addWork(Work $work)
     {
-        $this->work = $work;
+        $this->works->add($work);
     }
 }

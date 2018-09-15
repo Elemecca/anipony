@@ -79,7 +79,7 @@ extends AbstractController
                 }
 
                 $workCache[$aniId] = $work;
-                $product->setWork($work);
+                $product->addWork($work);
             }
 
             $em->flush();

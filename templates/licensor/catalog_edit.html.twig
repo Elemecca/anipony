@@ -22,10 +22,9 @@
           <td>{{ product.title }}</td>
           <td><input type="text" name="products[{{ product.id }}]" /></td>
           <td>
-            {% if product.work %}
-              {{ product.work.id }}
-              &mdash; {{ product.work.title }}
-            {% endif %}
+            {% for work in product.works %}
+              {{ work.id }} &mdash; {{ work.title }}<br>
+            {% endfor %}
           </td>
         </tr>
       {% endfor %}

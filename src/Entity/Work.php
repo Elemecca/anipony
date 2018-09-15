@@ -40,7 +40,7 @@ class Work
 
 
     /**
-     * @ORM\OneToMany(targetEntity="LicensorProduct", mappedBy="work")
+     * @ORM\ManyToMany(targetEntity="LicensorProduct", mappedBy="works")
      */
     private $products;
 
