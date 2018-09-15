@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title -%}
+  Bulk Add &lsaquo; {{ collection.name }} &lsaquo; Collections
+{%- endblock %}
+
+{% block body %}
+  <h1>Collection {{ collection.name }}</h1>
+  <h2>Bulk Add</h2>
+
+  <p>
+    Paste AniDB IDs separated by any amount of whitespace or commas.
+  </p>
+
+  <form method="POST">
+    <textarea name="ani_ids" class="form-control"></textarea>
+    <button type="submit" class="btn btn-primary">Add</button>
+  </form>
+{% endblock %}

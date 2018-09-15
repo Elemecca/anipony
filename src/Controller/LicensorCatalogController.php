@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Entity\Work;
+use App\Service\AnidbImporter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,7 +40,8 @@ extends AbstractController
     public function associate(
         int $licensor,
         Request $request,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        AnidbImporter $anidb
     ) {
         $lic = $em->getRepository('App:Licensor')->find($licensor);
         $products = $em
@@ -47,38 +49,15 @@ extends AbstractController
             ->findBy(['licensor' => $lic])
         ;
 
-        $aniTitles = $em->getRepository('App:AnidbTitle');
-        $works = $em->getRepository('App:Work');
-
         if ($request->isMethod('POST')) {
-            $workCache = [];
             $vals = $request->request->get('products');
             foreach ($products as $product) {
                 $prodId = $product->getId();
                 if (empty($vals[$prodId])) continue;
-                $aniId = $vals[$prodId];
 
+                $work = $anidb->importWork($vals[$prodId]);
+                if (!$work) continue;
 
-                if (isset($workCache[$aniId])) {
-                    $work = $workCache[$aniId];
-                } else {
-                    $work = $works->findOneBy(['aniId' => $aniId]);
-                }
-
-                if (!$work) {
-                    $aniTitle = $aniTitles->findOneBy([
-                        'aniId' => $aniId,
-                        'type' => 'main',
-                    ]);
-                    if (!$aniTitle) continue;
-
-                    $work = new Work();
-                    $work->setTitle($aniTitle->getTitle());
-                    $work->setAniId($aniId);
-                    $em->persist($work);
-                }
-
-                $workCache[$aniId] = $work;
                 $product->addWork($work);
             }
 

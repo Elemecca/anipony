@@ -10,6 +10,26 @@
         {% endblock %}
     </head>
     <body>
+        {# flash messages #}
+        {% macro flash(message_bag, class_type) %}
+          {% for flash_message in message_bag %}
+              <div class="alert-{{ class_type }} alert alert-dismissible no-print" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                {{ flash_message|raw }}
+              </div>
+          {% endfor %}
+        {% endmacro %}
+        {% import _self as msg %}
+        {{ msg.flash(app.session.flashBag.get('error'), 'danger') }}
+        {{ msg.flash(app.session.flashBag.get('warning'), 'warning') }}
+        {{ msg.flash(app.session.flashBag.get('alert'), 'info') }}
+        {{ msg.flash(app.session.flashBag.get('notice'), 'info') }}
+        {{ msg.flash(app.session.flashBag.get('success'), 'success') }}
+        {# end flash messages #}
+
+
         {% block body %}{% endblock %}
         {% block javascripts %}
             <script src="{{ asset('build/app.js') }}"></script>
