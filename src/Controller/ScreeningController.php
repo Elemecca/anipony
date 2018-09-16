@@ -59,6 +59,7 @@ extends AbstractController
         }
 
         return $this->render('screening/edit.html.twig', [
+            'work' => $work,
             'form' => $form->createView(),
         ]);
     }

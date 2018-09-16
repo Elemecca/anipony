@@ -1,8 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+  <div class="container">
+    <h1>Screening &ndash; {{ work.title }}</h1>
   {{ form_start(form) }}
-  {{ form_widget(form) }}
+    <div class="row">
+      <div class="col-md-6">
+        {{ form_row(form.appropriate) }}
+        {{ form_row(form.horrible) }}
+        {{ form_row(form.notes) }}
+        {{ form_row(form.summary) }}
+        {{ form_row(form.english) }}
+      </div>
+      <div class="col-md-6">
+        {{ form_row(form.tags) }}
+      </div>
+    </div>
   <button type="submit" class="btn btn-primary">Save</button>
   {{ form_end(form) }}
+  </div>
 {% endblock %}
