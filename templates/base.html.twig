@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html>
-    <head>
+  <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Hentai Horse{% endblock %}</title>
+
+        <link rel="icon" href="/images/horse_logo.svg" />
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('build/app.css') }}">
         {% endblock %}
-    </head>
-    <body>
+  </head>
+  <body>
+    <div class="container">
+      <header class="row">
+        <nav class="navbar navbar-expand-md navbar-light">
+          <a class="navbar-brand" href="#">
+            Hentai Horse
+          </a>
+        </nav>
+      </header>
+
+      <main>
         {# flash messages #}
         {% macro flash(message_bag, class_type) %}
           {% for flash_message in message_bag %}
@@ -31,8 +43,14 @@
 
 
         {% block body %}{% endblock %}
-        {% block javascripts %}
-            <script src="{{ asset('build/app.js') }}"></script>
-        {% endblock %}
-    </body>
+      </main>
+
+      <footer class="row">
+        <small>&copy; 2018 Sam Hanes</small>
+      </footer>
+    </div>
+    {% block javascripts %}
+      <script src="{{ asset('build/app.js') }}"></script>
+    {% endblock %}
+  </body>
 </html>

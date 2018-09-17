@@ -1,2 +1,31 @@
 
 @import "~bootstrap/scss/bootstrap";
+
+body {
+  background: #ccc url('/images/horse_background.svg') repeat fixed;
+}
+
+body > .container {
+  background: #fff;
+
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+
+  & > header {
+    margin-bottom: $grid-gutter-width;
+    background: #eee;
+  }
+
+  & > main {
+    flex: 1;
+  }
+
+  & > footer {
+    margin-top: $grid-gutter-width;
+    padding: $spacer;
+
+    background: #999;
+    color: #555;
+  }
+}
