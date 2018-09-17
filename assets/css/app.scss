@@ -27,5 +27,10 @@ body > .container {
 
     background: #999;
     color: #555;
+
+    & a {
+      color: #444;
+      font-weight: 500;
+    }
   }
 }
